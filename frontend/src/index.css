@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+:root {
+  font-family: "Dosis", sans-serif;
+}
+
+@theme {
+  --color-primary: var(--color-red-500);
+}
