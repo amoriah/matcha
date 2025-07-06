@@ -1,4 +1,6 @@
-import { SignUp } from './pages/SignUp';
+import { ApproveSignUp } from './pages/ApproveSignUp';
+import { SignInForm } from './pages/login/SignInForm';
+import { SignUpForm } from './pages/signUp/SignUpForm';
 
 export const App = () => {
   return (
@@ -8,7 +10,9 @@ export const App = () => {
     //    border-blue-700
     //   "
     //   >
-      <SignUp />
+    // <SignUpForm />
+    <ApproveSignUp />
+    // <SignInForm />
     // </div>
   );
 };

@@ -3,5 +3,5 @@ interface FieldErrorProps {
 }
 
 export const FieldError = ({ message }: FieldErrorProps) => {
-  return <span className="absolute  -bottom-6 left-2 text-md text-red-600">{message}</span>;
+  return <span className="absolute  -bottom-5 left-2 text-sm text-gray-600">{message}</span>;
 };

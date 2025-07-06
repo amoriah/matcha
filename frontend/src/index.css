@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 
 :root {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
 }
 
 @theme {
   --color-primary: var(--color-red-500);
+  /* --color-peanch: #ff938d; */
+  /* --color-peanch: #ff7166; */
+  /* --color-peanch: #F98B88; */
 }

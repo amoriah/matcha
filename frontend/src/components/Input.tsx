@@ -1,41 +1,34 @@
-import { useState } from 'react';
 import { FieldError } from './FieldError';
+import type { eventType } from '@/types';
 
 interface InputProps {
-  id: string;
   name: string;
+  value: string;
   placeholder: string;
-  handleFunction: (value: string) => string;
-  handleValidForm: (value: boolean) => void;
+  error: string | null;
+  onChange: (e: eventType) => void;
   type?: string;
 }
 
 export const Input = ({
-  id,
   name,
+  value,
   placeholder,
-  handleFunction,
-  handleValidForm,
+  error,
+  onChange,
   type = 'text',
 }: InputProps) => {
-  const [error, setError] = useState('');
-
-  const checkField = (e: any) => {
-    const message = handleFunction(e.target.value);
-    if (message) handleValidForm(false);
-    setError(message);
-  };
 
   return (
     <div className="flex flex-col relative">
       <input
-        id={id}
         name={name}
+        value={value}
         type={type}
         className="w-80 h-12 px-4 py-3 border border-gray-300 rounded-lg
-     focus:border-fuchsia-400 focus:outline focus:outline-fuchsia-400 text-lg"
+     focus:border-lime-500 focus:outline focus:outline-lime-500 text-lg"
         placeholder={placeholder}
-        onChange={checkField}
+        onChange={onChange}
       />
       {error && <FieldError message={error} />}
     </div>
