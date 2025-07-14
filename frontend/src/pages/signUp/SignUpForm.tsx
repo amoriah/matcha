@@ -1,12 +1,19 @@
 import logoUrl from '@assets/logo.svg';
 import { Input } from '@components/Input';
+import { Notification } from '@components/Notification';
 import { signUpFInputsSettings } from './signUpInputsSettings';
 import { useForm } from '@/hooks/useForm';
 import type { inputValuesType } from '@/types';
 import { hasEmptyInput } from '@/utils/hasEmptyInput';
+import { useWordsValidator } from '@/hooks/useWordsValidator';
+import { useState } from 'react';
 //todo что за х с алеасами ??
 
 export const SignUpForm = () => {
+  const { isSimpleEnglishWord } = useWordsValidator();
+  const [openNotification, setOpenNotification] = useState(false);
+  const [error, setError] = useState('');
+
   const defaultInputsValues = signUpFInputsSettings.reduce<inputValuesType>(
     (acc, input) => {
       acc[input.name] = input.value;
@@ -18,7 +25,13 @@ export const SignUpForm = () => {
     inputs: signUpFInputsSettings,
     defaultInputs: defaultInputsValues,
     onSubmit: formData => {
-      console.log('formData: ', formData);
+      const passwordLetters = formData.password.replace(/\d/g, '');
+      if (!isSimpleEnglishWord(passwordLetters.toLowerCase()))
+        console.log('do request here');
+      else {
+        setError('Password mustn incluse common english word')
+        setOpenNotification(true);
+      }
     },
   });
 
@@ -26,6 +39,7 @@ export const SignUpForm = () => {
 
   return (
     <div className="w-full h-full flex items-start pt-36 justify-center ">
+      {openNotification && <Notification text={error} type="error" />}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-8 p-6 border border-gray-100 rounded-lg shadow-2xl"
@@ -67,11 +81,3 @@ export const SignUpForm = () => {
     </div>
   );
 };
-/*
-все обязательные
- email - проверка формата
- login - только латиница , от 3 до 20
- firstName - только латиница от 2 до 15
- lastName - только латиница от 2 до 20
- password - 6 -20, буквы + цифры
-*/

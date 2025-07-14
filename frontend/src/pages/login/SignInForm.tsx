@@ -16,8 +16,10 @@ export const SignInForm = () => {
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     inputs: signInFInputsSettings,
     defaultInputs: defaultInputsValues,
-    onSubmit: formData => {
-      console.log('formData: ', formData);
+    onSubmit:  formData => {
+      console.log('sign in formData: ', formData);
+
+   
     },
   });
 
