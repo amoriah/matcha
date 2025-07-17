@@ -65,7 +65,7 @@ export const SignUpForm = () => {
         })}
         <button
           type="submit"
-          className="mt-2 px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-lime-400 to-rose-500 shadow-md hover:shadow-lg text-white 
+          className="mt-2 px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-matcha-bg to-rose-bright shadow-md hover:shadow-lg text-white 
           font-bold text-xl
 
            disabled:bg-gray-300
