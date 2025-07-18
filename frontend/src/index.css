@@ -1,15 +1,22 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
 }
 
 @theme {
-   --color-matcha-bg: var(--color-lime-400);
-   --color-rose-bg: var(--color-rose-300);
-   --color-rose-bright: var(--color-rose-500);
-}
+  --color-matcha-bg: var(--color-lime-400);
+  --color-rose-bg: var(--color-rose-300);
+  --color-rose-bright: var(--color-rose-500);
 
-  /* --color-peanch: #ff938d; */
-  /* --color-peanch: #ff7166; */
-  /* --color-peanch: #F98B88; */
+  --animate-notification: notification 0.2s ease-in-out alternate;
+
+  @keyframes notification {
+    0% {
+      top: -20px;
+    }
+    100% {
+      top: 2px;
+    }
+  }
+}

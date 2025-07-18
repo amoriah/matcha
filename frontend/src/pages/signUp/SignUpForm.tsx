@@ -11,8 +11,7 @@ import { useState } from 'react';
 
 export const SignUpForm = () => {
   const { isSimpleEnglishWord } = useWordsValidator();
-  const [openNotification, setOpenNotification] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState('hafJAFKLKJlksaW;KSKXKDEWFWE');
 
   const defaultInputsValues = signUpFInputsSettings.reduce<inputValuesType>(
     (acc, input) => {
@@ -30,7 +29,6 @@ export const SignUpForm = () => {
         console.log('do request here');
       else {
         setError('Password mustn incluse common english word')
-        setOpenNotification(true);
       }
     },
   });
@@ -39,7 +37,7 @@ export const SignUpForm = () => {
 
   return (
     <div className="w-full h-full flex items-start pt-36 justify-center ">
-      {openNotification && <Notification text={error} type="error" />}
+      {error && <Notification text={error} type="error" />}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-8 p-6 border border-gray-100 rounded-lg shadow-2xl"
