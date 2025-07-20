@@ -1,5 +1,5 @@
 export const checkMaxLength = (value: string, lengthLimit: number) => {
-  return value.length <= lengthLimit ? '' : `Max linit is ${lengthLimit}`;
+  return value.length <= lengthLimit ? '' : `Max limit is ${lengthLimit}`;
 };
 
 export const checkMinLength = (value: string, lengthLimit: number) => {

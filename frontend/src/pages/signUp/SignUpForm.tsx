@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { hasEmptyInput } from '@utils';
 import logoUrl from '@assets/logo.svg';
 import { Input, Notification } from '@components';
 import type { inputValuesType } from '@app-types';
 import { useWordsValidator, useForm } from '@hooks';
 import { signUpFInputsSettings } from './signUpInputsSettings';
+import { login } from '@features/auth/authHandle';
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
   const { isSimpleEnglishWord } = useWordsValidator();
-  const [error, setError] = useState('hafJAFKLKJlksaW;KSKXKDEWFWE');
-
+  const [error, setError] = useState('');
+//todo уведомление исчезает навсегда
   const defaultInputsValues = signUpFInputsSettings.reduce<inputValuesType>(
     (acc, input) => {
       acc[input.name] = input.value;
@@ -22,10 +25,12 @@ export const SignUpForm = () => {
     defaultInputs: defaultInputsValues,
     onSubmit: formData => {
       const passwordLetters = formData.password.replace(/\d/g, '');
-      if (!isSimpleEnglishWord(passwordLetters.toLowerCase()))
+      if (!isSimpleEnglishWord(passwordLetters.toLowerCase())) {
         console.log('do request here');
-      else {
-        setError("Password must'n incluse common english word");
+        login();
+        navigate('/matcha/approve');
+      } else {
+        setError("Password must'n include common english words");
       }
     },
   });
@@ -58,9 +63,16 @@ export const SignUpForm = () => {
             />
           );
         })}
+        <div>
+          <a href={'/matcha/signin'}>
+            <p className="font-normal text-28 text-gray-500 hover:text-matcha-text">
+              Already have an account? Click to Sign in.
+            </p>
+          </a>
+        </div>
         <button
           type="submit"
-          className="mt-2 px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-matcha-bg to-rose-bright shadow-md hover:shadow-lg text-white 
+          className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-matcha-bg to-rose-bright shadow-md hover:shadow-lg text-white 
           font-bold text-xl
 
            disabled:bg-gray-300

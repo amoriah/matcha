@@ -23,14 +23,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     
-    /*aleases*/
+    /*aliases*/
     "baseUrl": ".",
     "paths": {
       "@components": ["src/components/index.ts"],
       "@hooks": ["src/hooks/index.ts"],
       "@pages": ["src/pages/index.ts"],
       "@features/*": ["src/features/*"],
-      "@store/*": ["src/store/*"],
+      "@store": ["src/store/index.tsx"],
       "@app-types": ["src/types/index.ts"],
       "@assets/*": ["src/assets/*"],
       "@utils": ["src/utils/index.ts"],

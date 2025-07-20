@@ -1,11 +1,14 @@
 import { useForm } from '@hooks';
+import { useNavigate } from 'react-router';
 import { Input } from '@components';
 import { hasEmptyInput } from '@utils';
 import logoUrl from '@assets/logo.svg';
 import type { inputValuesType } from '@app-types';
 import { signInFInputsSettings } from './signInInputsSettings';
+import { login } from '@features/auth/authHandle';
 
 export const SignInForm = () => {
+  const navigate = useNavigate();
   const defaultInputsValues = signInFInputsSettings.reduce<inputValuesType>(
     (acc, input) => {
       acc[input.name] = input.value;
@@ -16,10 +19,10 @@ export const SignInForm = () => {
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     inputs: signInFInputsSettings,
     defaultInputs: defaultInputsValues,
-    onSubmit:  formData => {
-      console.log('sign in formData: ', formData);
-
-   
+    onSubmit: formData => {
+      console.log('do request: ', formData);
+      login();
+      navigate('/matcha');
     },
   });
 
@@ -49,9 +52,16 @@ export const SignInForm = () => {
             />
           );
         })}
+        <div>
+          <a href={'/matcha/signup'}>
+            <p className="font-normal text-28 text-gray-500 hover:text-matcha-text">
+              Don't have an account? Click to sign up.
+            </p>
+          </a>
+        </div>
         <button
           type="submit"
-          className="mt-2 px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-lime-400 to-rose-500 shadow-md hover:shadow-lg text-white 
+          className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-lime-400 to-rose-500 shadow-md hover:shadow-lg text-white 
           font-bold text-xl
 
            disabled:bg-gray-300

@@ -6,6 +6,7 @@
 
 @theme {
   --color-matcha-bg: var(--color-lime-400);
+    --color-matcha-text: var(--color-lime-500);
   --color-rose-bg: var(--color-rose-300);
   --color-rose-bright: var(--color-rose-500);
 
