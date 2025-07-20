@@ -5,7 +5,7 @@ import type {
   inputValuesType,
   inputErrorsType,
   postDataType,
-} from '@/types';
+} from '@app-types';
 
 interface UseFormProps {
   inputs: IInputsConfig[];

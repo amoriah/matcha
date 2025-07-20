@@ -1,0 +1,1 @@
+export { hasEmptyInput } from './hasEmptyInput';

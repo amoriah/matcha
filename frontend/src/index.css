@@ -9,11 +9,11 @@
   --color-rose-bg: var(--color-rose-300);
   --color-rose-bright: var(--color-rose-500);
 
-  --animate-notification: notification 0.2s ease-in-out alternate;
+  --animate-notification: notification 0.3s ease-in-out alternate;
 
   @keyframes notification {
     0% {
-      top: -20px;
+      top: -48px;
     }
     100% {
       top: 2px;

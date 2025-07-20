@@ -1,4 +1,4 @@
-import type { IInputsConfig } from '@/types';
+import type { IInputsConfig } from '@app-types';
 import { checkRequire } from '../validate';
 
 export const signInFInputsSettings: IInputsConfig[] = [

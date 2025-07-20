@@ -1,9 +1,9 @@
-import type { inputValuesType } from '@/types';
-import { signInFInputsSettings } from './signInInputsSettings';
+import { useForm } from '@hooks';
+import { Input } from '@components';
+import { hasEmptyInput } from '@utils';
 import logoUrl from '@assets/logo.svg';
-import { useForm } from '@/hooks/useForm';
-import { hasEmptyInput } from '@/utils/hasEmptyInput';
-import { Input } from '@/components/Input';
+import type { inputValuesType } from '@app-types';
+import { signInFInputsSettings } from './signInInputsSettings';
 
 export const SignInForm = () => {
   const defaultInputsValues = signInFInputsSettings.reduce<inputValuesType>(

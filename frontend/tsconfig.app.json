@@ -26,14 +26,14 @@
     /*aleases*/
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
+      "@components": ["src/components/index.ts"],
+      "@hooks": ["src/hooks/index.ts"],
+      "@pages": ["src/pages/index.ts"],
       "@features/*": ["src/features/*"],
       "@store/*": ["src/store/*"],
-      "@app-types/*": ["src/types/*"],
-      "@assets/*": ["src/assets/*"]
+      "@app-types": ["src/types/index.ts"],
+      "@assets/*": ["src/assets/*"],
+      "@utils": ["src/utils/index.ts"],
     }
   },
 

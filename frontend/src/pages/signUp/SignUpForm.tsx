@@ -1,13 +1,10 @@
-import logoUrl from '@assets/logo.svg';
-import { Input } from '@components/Input';
-import { Notification } from '@components/Notification';
-import { signUpFInputsSettings } from './signUpInputsSettings';
-import { useForm } from '@/hooks/useForm';
-import type { inputValuesType } from '@/types';
-import { hasEmptyInput } from '@/utils/hasEmptyInput';
-import { useWordsValidator } from '@/hooks/useWordsValidator';
 import { useState } from 'react';
-//todo что за х с алеасами ??
+import { hasEmptyInput } from '@utils';
+import logoUrl from '@assets/logo.svg';
+import { Input, Notification } from '@components';
+import type { inputValuesType } from '@app-types';
+import { useWordsValidator, useForm } from '@hooks';
+import { signUpFInputsSettings } from './signUpInputsSettings';
 
 export const SignUpForm = () => {
   const { isSimpleEnglishWord } = useWordsValidator();
@@ -28,7 +25,7 @@ export const SignUpForm = () => {
       if (!isSimpleEnglishWord(passwordLetters.toLowerCase()))
         console.log('do request here');
       else {
-        setError('Password mustn incluse common english word')
+        setError("Password must'n incluse common english word");
       }
     },
   });

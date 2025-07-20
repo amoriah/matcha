@@ -1,5 +1,5 @@
 import { FieldError } from './FieldError';
-import type { eventType } from '@/types';
+import type { eventType } from '@app-types';
 
 interface InputProps {
   name: string;
@@ -18,7 +18,6 @@ export const Input = ({
   onChange,
   type = 'text',
 }: InputProps) => {
-
   return (
     <div className="flex flex-col relative">
       <input
