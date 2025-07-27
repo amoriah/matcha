@@ -1,12 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
 }
 
 @theme {
+    --color-matcha-light: var(--color-lime-300);
   --color-matcha-bg: var(--color-lime-400);
-    --color-matcha-text: var(--color-lime-500);
+  --color-matcha-text: var(--color-lime-500);
   --color-rose-bg: var(--color-rose-300);
   --color-rose-bright: var(--color-rose-500);
 

@@ -6,6 +6,7 @@ export interface IStore {
 }
 
 export const useStore = create<IStore>()(set => ({
-  isAuth: false,
+  // isAuth: false,
+  isAuth: true,
   setIsAuth: (payload) => set({ isAuth: payload }),
 }));

@@ -13,8 +13,8 @@ export const TokenPage = () => {
       setStatus('success');
       setTimeout(() => {
         navigate('/matcha');
-      }, 2000);
-    }, 2000);
+      }, 4000);
+    }, 4000);
   }, [token]);
 
   return (

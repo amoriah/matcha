@@ -1,79 +1,54 @@
-import { useForm } from '@hooks';
-import { useNavigate } from 'react-router';
-import { Input } from '@components';
-import { hasEmptyInput } from '@utils';
-import logoUrl from '@assets/logo.svg';
-import type { inputValuesType } from '@app-types';
-import { signInFInputsSettings } from './signInInputsSettings';
-import { login } from '@features/auth/authHandle';
+// import { useNavigate } from 'react-router';
+import type { IInputsConfig } from '@app-types';
+import { AuthForm } from '@features/auth/AuthForm';
+import { checkRequire } from '../validate';
+// import { login } from '@features/auth/authHandle';
+
+export const signInFInputsSettings: IInputsConfig[] = [
+  {
+    id: '1',
+    name: 'login',
+    type: 'text',
+    placeholder: 'Login',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      return requireErrorMessage || '';
+    },
+  },
+
+  {
+    id: '2',
+    name: 'password',
+    type: 'password',
+    placeholder: 'Password',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+
+      return requireErrorMessage || '';
+    },
+  },
+];
+
 
 export const SignInForm = () => {
-  const navigate = useNavigate();
-  const defaultInputsValues = signInFInputsSettings.reduce<inputValuesType>(
-    (acc, input) => {
-      acc[input.name] = input.value;
-      return acc;
-    },
-    {}
-  );
-  const { values, errors, isValid, handleChange, handleSubmit } = useForm({
-    inputs: signInFInputsSettings,
-    defaultInputs: defaultInputsValues,
-    onSubmit: formData => {
-      console.log('do request: ', formData);
-      login();
-      navigate('/matcha');
-    },
-  });
+  // const navigate = useNavigate();
 
-  const isDisabled = hasEmptyInput(values) || !isValid;
+  // const submitHandle = () => {
+  //   login();
+  //   navigate('/matcha');
+  // };
+
   return (
-    <div className="w-full h-full flex items-start pt-36 justify-center ">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-8 p-6 border border-gray-100 rounded-lg shadow-2xl"
-      >
-        <div className="flex justify-center items-center gap-2">
-          <h2 className="font-bold text-3xl text-gray-600">Sign in </h2>
-          <img className="w-10 h-10" src={logoUrl} alt="logo" />
-        </div>
-
-        {signInFInputsSettings.map((input, i) => {
-          const { name, type, placeholder } = input;
-          return (
-            <Input
-              key={`${i}`}
-              name={name}
-              value={values[name]}
-              onChange={handleChange}
-              type={type}
-              placeholder={placeholder}
-              error={errors ? errors[name] : null}
-            />
-          );
-        })}
-        <div>
-          <a href={'/matcha/signup'}>
-            <p className="font-normal text-28 text-gray-500 hover:text-matcha-text">
-              Don't have an account? Click to sign up.
-            </p>
-          </a>
-        </div>
-        <button
-          type="submit"
-          className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-lime-400 to-rose-500 shadow-md hover:shadow-lg text-white 
-          font-bold text-xl
-
-           disabled:bg-gray-300
-            disabled:from-none disabled:to-none
-             disabled:bg-none
-            disabled:text-gray-500
-             disabled:shadow-none"
-          disabled={isDisabled}
-        >
-          {'Submit'}
-        </button>
-      </form>
-    </div>
+    <AuthForm
+      fieldsSettings={signInFInputsSettings}
+      footerLabel={"Don't have an account? Click to sign up"}
+      footerUrl={'/matcha/signup'}
+      navigateTo={'/matcha'}
+      // submitHandle={submitHandle}
+    />
   );
 };

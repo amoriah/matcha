@@ -23,7 +23,12 @@ export const useWordsValidator = () => {
   }, []);
 
   const isSimpleEnglishWord = useCallback(
-    (password: string) => wordsList.some(word => word === password),
+    (password: string) => {
+      const hasInvalidValue = wordsList.some(word => word === password);
+      if (hasInvalidValue)
+        return "Password must'n include common english words";
+      return '';
+    },
     [wordsList]
   );
 

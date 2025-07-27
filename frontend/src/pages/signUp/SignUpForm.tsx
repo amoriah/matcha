@@ -1,90 +1,132 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { hasEmptyInput } from '@utils';
-import logoUrl from '@assets/logo.svg';
-import { Input, Notification } from '@components';
-import type { inputValuesType } from '@app-types';
-import { useWordsValidator, useForm } from '@hooks';
-import { signUpFInputsSettings } from './signUpInputsSettings';
-import { login } from '@features/auth/authHandle';
+import { useWordsValidator } from '@hooks';
+import { AuthForm } from '@features/auth/AuthForm';
+import { checkEmail, checkLogin, checkMaxLength, checkMinLength, checkNames, checkPassword, checkRequire } from '../validate';
+import type { IInputsConfig } from '@app-types';
+// import { useNavigate } from 'react-router';
+// import { login } from '@features/auth/authHandle';
+
+export const signUpFInputsSettings: IInputsConfig[] = [
+  {
+    id: '1',
+    name: 'email',
+    type: 'email',
+    placeholder: 'Email',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      const emailErrorMessage = checkEmail(value);
+      return requireErrorMessage || emailErrorMessage || '';
+    },
+  },
+  {
+    id: '2',
+    name: 'login',
+    type: 'text',
+    placeholder: 'Login',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      const minErrorMassage = checkMinLength(value, 3);
+      const maxErrorMassage = checkMaxLength(value, 20);
+      const loginErrorMessage = checkLogin(value);
+
+      return (
+        requireErrorMessage ||
+        loginErrorMessage ||
+        minErrorMassage ||
+        maxErrorMassage ||
+        ''
+      );
+    },
+  },
+  {
+    id: '3',
+    name: 'firstName',
+    type: 'text',
+    placeholder: 'First Name',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      const minErrorMassage = checkMinLength(value, 2);
+      const maxErrorMassage = checkMaxLength(value, 15);
+      const nameErrorMessage = checkNames(value);
+
+      return (
+        requireErrorMessage ||
+        nameErrorMessage ||
+        minErrorMassage ||
+        maxErrorMassage ||
+        ''
+      );
+    },
+  },
+  {
+    id: '4',
+    name: 'lastName',
+    type: 'text',
+    placeholder: 'Last Name',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      const minErrorMassage = checkMinLength(value, 2);
+      const maxErrorMassage = checkMaxLength(value, 15);
+      const nameErrorMessage = checkNames(value);
+
+      return (
+        requireErrorMessage ||
+        nameErrorMessage ||
+        minErrorMassage ||
+        maxErrorMassage ||
+        ''
+      );
+    },
+  },
+  {
+    id: '5',
+    name: 'password',
+    type: 'password',
+    placeholder: 'Password',
+    value: '',
+    error: '',
+    validate: (value: string) => {
+      const requireErrorMessage = checkRequire(value);
+      const minErrorMassage = checkMinLength(value, 6);
+      const maxErrorMassage = checkMaxLength(value, 20);
+      const passErrorMessage = checkPassword(value);
+
+      return (
+        requireErrorMessage ||
+        passErrorMessage ||
+        minErrorMassage ||
+        maxErrorMassage ||
+        ''
+      );
+    },
+  },
+];
+
 
 export const SignUpForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { isSimpleEnglishWord } = useWordsValidator();
-  const [error, setError] = useState('');
-//todo уведомление исчезает навсегда
-  const defaultInputsValues = signUpFInputsSettings.reduce<inputValuesType>(
-    (acc, input) => {
-      acc[input.name] = input.value;
-      return acc;
-    },
-    {}
-  );
-  const { values, errors, isValid, handleChange, handleSubmit } = useForm({
-    inputs: signUpFInputsSettings,
-    defaultInputs: defaultInputsValues,
-    onSubmit: formData => {
-      const passwordLetters = formData.password.replace(/\d/g, '');
-      if (!isSimpleEnglishWord(passwordLetters.toLowerCase())) {
-        console.log('do request here');
-        login();
-        navigate('/matcha/approve');
-      } else {
-        setError("Password must'n include common english words");
-      }
-    },
-  });
 
-  const isDisabled = hasEmptyInput(values) || !isValid;
+  // const submitHandle = () => {
+  //   login()
+  //   navigate('/matcha/approve');
+  // };
 
   return (
-    <div className="w-full h-full flex items-start pt-36 justify-center ">
-      {error && <Notification text={error} type="error" />}
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-8 p-6 border border-gray-100 rounded-lg shadow-2xl"
-      >
-        <div className="flex justify-center items-center gap-2">
-          <h2 className="font-bold text-3xl text-gray-600">Sign up in </h2>
-          <img className="w-10 h-10" src={logoUrl} alt="logo" />
-        </div>
-
-        {signUpFInputsSettings.map((input, i) => {
-          const { name, type, placeholder } = input;
-          return (
-            <Input
-              key={`${i}`}
-              name={name}
-              value={values[name]}
-              onChange={handleChange}
-              type={type}
-              placeholder={placeholder}
-              error={errors ? errors[name] : null}
-            />
-          );
-        })}
-        <div>
-          <a href={'/matcha/signin'}>
-            <p className="font-normal text-28 text-gray-500 hover:text-matcha-text">
-              Already have an account? Click to Sign in.
-            </p>
-          </a>
-        </div>
-        <button
-          type="submit"
-          className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-matcha-bg to-rose-bright shadow-md hover:shadow-lg text-white 
-          font-bold text-xl
-
-           disabled:bg-gray-300
-            disabled:from-none disabled:to-none
-             disabled:bg-none
-            disabled:text-gray-500
-             disabled:shadow-none"
-          disabled={isDisabled}
-        >
-          {'Submit'}
-        </button>
-      </form>
-    </div>
+    <AuthForm
+      fieldsSettings={signUpFInputsSettings}
+      footerLabel={'Already have an account? Click to Sign in'}
+      footerUrl={'/matcha/signin'}
+      navigateTo={'/matcha/approve'}
+      // submitHandle={submitHandle}
+      validator={isSimpleEnglishWord}
+    />
   );
 };
