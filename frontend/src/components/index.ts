@@ -3,3 +3,7 @@ export { FieldError } from './FieldError';
 export { Input } from './Input';
 export { Notification } from './Notification';
 export { Chip } from './Chip';
+export { Select } from './Select';
+export { PutPhotoBlock } from './PutPhotoBlock';
+export { Svg } from './Svg';
+export { Divider } from './Divider';

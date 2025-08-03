@@ -1,12 +1,33 @@
 interface ButtonProps {
-  title: string;
+  color: string;
+  text: string;
+  disabled?: boolean;
+  click?: (_: any) => any;
+  type?: 'button' | 'submit' | 'reset';
 }
 
-//not use
-export const Button = ({ title }: ButtonProps) => {
+export const Button = ({
+  color,
+  text,
+  click = undefined,
+  disabled = false,
+  type = 'button',
+}: ButtonProps) => {
   return (
-    <button className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-fuchsia-400 to-rose-500 shadow-md hover:shadow-lg text-white font-bold">
-      {title}
+    <button
+      type={type}
+      onClick={click}
+      disabled={disabled}
+      className={`px-6 py-3 border-0 rounded-2xl ${color} shadow-md shadow-matcha-light/50 hover:shadow-lg text-white 
+          font-bold text-xl 
+          disabled:bg-gray-300
+            disabled:from-none 
+            disabled:to-none
+             disabled:bg-none
+            disabled:text-gray-500
+             disabled:shadow-none`}
+    >
+      {text}
     </button>
   );
 };

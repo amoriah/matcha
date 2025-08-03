@@ -4,7 +4,7 @@ import { useForm } from '@hooks';
 import { hasEmptyInput } from '@utils';
 import logoUrl from '@assets/logo.svg';
 import { login } from '@features/auth/authHandle';
-import { Input, Notification } from '@components';
+import { Button, Input, Notification } from '@components';
 import type { IInputsConfig, inputValuesType } from '@app-types';
 
 interface AuthFormProps {
@@ -12,7 +12,6 @@ interface AuthFormProps {
   footerLabel: string;
   footerUrl: string;
   navigateTo: string;
-  //   submitHandle: () => void;
   validator?: (value: string) => string;
 }
 
@@ -21,7 +20,6 @@ export const AuthForm = ({
   footerLabel,
   footerUrl,
   navigateTo,
-  //   submitHandle,
   validator,
 }: AuthFormProps) => {
   const navigate = useNavigate();
@@ -88,20 +86,12 @@ export const AuthForm = ({
             </p>
           </a>
         </div>
-        <button
+        <Button
+          color={'bg-gradient-to-r from-matcha-bg to-rose-bright'}
+          text={'Submit'}
           type="submit"
-          className="px-6 py-3 border-0 rounded-2xl  bg-gradient-to-r from-matcha-bg to-rose-bright shadow-md hover:shadow-lg text-white 
-          font-bold text-xl
-
-           disabled:bg-gray-300
-            disabled:from-none disabled:to-none
-             disabled:bg-none
-            disabled:text-gray-500
-             disabled:shadow-none"
-              disabled={isDisabled}
-        >
-          {'Submit'}
-        </button>
+          disabled={isDisabled}
+        />
       </form>
     </div>
   );
