@@ -1,6 +1,14 @@
 import { useWordsValidator } from '@hooks';
 import { AuthForm } from '@features/auth/AuthForm';
-import { checkEmail, checkLogin, checkMaxLength, checkMinLength, checkNames, checkPassword, checkRequire } from '../validate';
+import {
+  checkEmail,
+  checkLogin,
+  checkMaxLength,
+  checkMinLength,
+  checkNames,
+  checkPassword,
+  checkRequire,
+} from '../../features/auth/validate';
 import type { IInputsConfig } from '@app-types';
 // import { useNavigate } from 'react-router';
 // import { login } from '@features/auth/authHandle';
@@ -108,7 +116,6 @@ export const signUpFInputsSettings: IInputsConfig[] = [
     },
   },
 ];
-
 
 export const SignUpForm = () => {
   // const navigate = useNavigate();

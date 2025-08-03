@@ -1,7 +1,7 @@
 // import { useNavigate } from 'react-router';
 import type { IInputsConfig } from '@app-types';
 import { AuthForm } from '@features/auth/AuthForm';
-import { checkRequire } from '../validate';
+import { checkRequire } from '../../features/auth/validate';
 // import { login } from '@features/auth/authHandle';
 
 export const signInFInputsSettings: IInputsConfig[] = [
@@ -32,7 +32,6 @@ export const signInFInputsSettings: IInputsConfig[] = [
     },
   },
 ];
-
 
 export const SignInForm = () => {
   // const navigate = useNavigate();
