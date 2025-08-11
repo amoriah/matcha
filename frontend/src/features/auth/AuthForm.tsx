@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useForm } from '@hooks';
 import { hasEmptyInput } from '@utils';
 import logoUrl from '@assets/logo.svg';
 import { login } from '@features/auth/authHandle';
-import { Button, Input, Notification } from '@components';
+import { Button, Input } from '@components';
 import type { IInputsConfig, inputValuesType } from '@app-types';
+import { useNotificationStore } from '@features/notification/store/notificationStore';
 
 interface AuthFormProps {
   fieldsSettings: IInputsConfig[];
@@ -23,10 +23,8 @@ export const AuthForm = ({
   validator,
 }: AuthFormProps) => {
   const navigate = useNavigate();
+  const addNotification = useNotificationStore(state => state.addNotification);
 
-  const [error, setError] = useState('');
-
-  //todo уведомление исчезает навсегда
   const defaultInputsValues = fieldsSettings.reduce<inputValuesType>(
     (acc, input) => {
       acc[input.name] = input.value;
@@ -40,10 +38,12 @@ export const AuthForm = ({
     defaultInputs: defaultInputsValues,
     onSubmit: formData => {
       const passwordLetters = formData.password.replace(/\d/g, '');
+
       if (validator) {
         const errorMessage = validator(passwordLetters.toLowerCase());
-        if (errorMessage) setError(errorMessage);
-        else {
+        if (errorMessage) {
+          addNotification(errorMessage, 'error');
+        } else {
           login();
           navigate(navigateTo);
         }
@@ -55,7 +55,6 @@ export const AuthForm = ({
 
   return (
     <div className="w-full h-full flex items-start pt-36 justify-center ">
-      {error && <Notification text={error} type="error" />}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-8 p-6 border border-gray-100 rounded-lg shadow-2xl"

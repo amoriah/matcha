@@ -1,7 +1,8 @@
+export { Layout } from './Layout';
 export { Button } from './Button';
 export { FieldError } from './FieldError';
 export { Input } from './Input';
-export { Notification } from './Notification';
+export { Notification } from '../features/notification/components/Notification';
 export { Chip } from './Chip';
 export { Select } from './Select';
 export { PutPhotoBlock } from './PutPhotoBlock';

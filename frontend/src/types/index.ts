@@ -15,3 +15,5 @@ export type inputErrorsType = Record<string, string | null> | null;
 export type postDataType = Record<string, string>;
 
 export type eventType = React.ChangeEvent<HTMLInputElement>;
+
+export type NotificationType = 'success' | 'error' | 'info';

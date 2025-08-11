@@ -10,8 +10,6 @@ import {
   checkRequire,
 } from '../../features/auth/validate';
 import type { IInputsConfig } from '@app-types';
-// import { useNavigate } from 'react-router';
-// import { login } from '@features/auth/authHandle';
 
 export const signUpFInputsSettings: IInputsConfig[] = [
   {
@@ -118,13 +116,7 @@ export const signUpFInputsSettings: IInputsConfig[] = [
 ];
 
 export const SignUpForm = () => {
-  // const navigate = useNavigate();
   const { isSimpleEnglishWord } = useWordsValidator();
-
-  // const submitHandle = () => {
-  //   login()
-  //   navigate('/matcha/approve');
-  // };
 
   return (
     <AuthForm
@@ -132,7 +124,6 @@ export const SignUpForm = () => {
       footerLabel={'Already have an account? Click to Sign in'}
       footerUrl={'/matcha/signin'}
       navigateTo={'/matcha/approve'}
-      // submitHandle={submitHandle}
       validator={isSimpleEnglishWord}
     />
   );
