@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
-	"log"
+	utils "matcha/internal/service"
 	"net/http"
-	"net/smtp"
 	"regexp"
 )
 
@@ -58,7 +57,11 @@ func (s *Server) RegistrationHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("User request for register accepted"))
 
 	// send link for verification
-	//
+	token := uuid.New().String()
+	err := utils.SendVerificationEmail(r.Context(), req.Email, req.FirstName, token)
+	if err != nil {
+		http.Error(w, "Send verification error: "+err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func (s *Server) ValidateRegister(req RegisterRequest) error {
@@ -102,21 +105,23 @@ func emailValid(email string) bool {
 	return true
 }
 
-func (s *Server) SendLinkConfirmEmail() {
-	token := uuid.New().String()
-
-	// Set up authentication information.
-	auth := smtp.PlainAuth("", "user@example.com", "password", "mail.example.com")
-
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
-	to := []string{"recipient@example.net"}
-	msg := []byte("To: recipient@example.net\r\n" +
-		"Subject: discount Gophers!\r\n" +
-		"\r\n" +
-		"This is the email body.\r\n")
-	err := smtp.SendMail("mail.example.com:25", auth, "sender@example.org", to, msg)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+//func (s *Server) SendLinkConfirmEmail(req RegisterRequest) {
+//	token := uuid.New().String()
+//	smtpServerName := "smtp.gmail.com"
+//	password := ""
+//
+//	// Set up authentication information.
+//	auth := smtp.PlainAuth("", req.Email, "password", smtpServerName)
+//
+//	// Connect to the server, authenticate, set the sender and recipient,
+//	// and send the email all in one step.
+//	to := []string{"recipient@example.net"}
+//	msg := []byte("To: recipient@example.net\r\n" +
+//		"Subject: discount Gophers!\r\n" +
+//		"\r\n" +
+//		"This is the email body.\r\n")
+//	err := smtp.SendMail("mail.example.com:25", auth, "sender@example.org", to, msg)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//}

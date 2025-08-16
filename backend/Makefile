@@ -7,7 +7,7 @@ BINARY=matcha
 build:
 	go build -o bin/$(BINARY) cmd/main.go
 
-run:
+run: build
 	go run cmd/main.go
 
 test:
